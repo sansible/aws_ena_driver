@@ -1,0 +1,71 @@
+---
+
+# The default driver for molecule is docker, but other backend are supported by molecule.
+# See https://molecule.readthedocs.io/en/latest/configuration.html#driver for details.
+driver:
+  name: docker
+
+# The platforms on which to test your role.  Groups can be created to spin up multiple instances per test.
+# See https://molecule.readthedocs.io/en/latest/configuration.html#platforms for details.
+# NOTE: Different drivers (see above) may have different configuration options.
+platforms:
+  - name: ROLE_NAME-trusty
+    image: ubuntu:trusty
+  - name: ROLE_NAME-xenial
+    image: ubuntu:xenial
+
+# Ansible is the only supported provisioner.  Configure Ansible options here, change the linter for Ansible playbooks,
+# or modify the playbooks run for the various molecule tasks.
+# See https://molecule.readthedocs.io/en/latest/configuration.html#provisioner for details.
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      hash_behaviour: merge
+  lint:
+    name: ansible-lint
+
+# Configures the YAML linter; currently, only support for yamllint is implemented.  Configuration options for
+# yamllint (https://yamllint.readthedocs.io/en/latest/configuration.html) can be specified.
+# See https://molecule.readthedocs.io/en/latest/configuration.html#lint for details.
+lint:
+  name: yamllint
+  options:
+    config-data:
+      extends: default
+      ignore: .venv_ansible*
+      rules:
+        line-length:
+          max: 159
+        truthy: disable
+
+# Dependency resolution is by default handled through Ansible Galaxy, but support for gilt (http://gilt.readthedocs.io/)
+# is available.  See https://molecule.readthedocs.io/en/latest/configuration.html#dependency for details.
+dependency:
+  name: galaxy
+
+# Every role to be tested via molecule requires at least one scenario.  Change the tasks executed for molecule
+# commands here, if necessary.
+# See https://molecule.readthedocs.io/en/latest/configuration.html#scenario for details.
+scenario:
+  name: default
+  # The test_sequence can be removed once molecule reaches version 2.6.  See
+  # https://github.com/metacloud/molecule/issues/1057 for reason.
+  test_sequence:
+    - lint
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+
+# The default verifier is testinfra, but goss is supported as well.  Configure the verifier, verifier options, and,
+# if using testinfra, linter and linter options here.
+# See https://molecule.readthedocs.io/en/latest/configuration.html#verifier for details.
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

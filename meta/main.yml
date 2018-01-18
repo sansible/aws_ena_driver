@@ -1,0 +1,28 @@
+---
+
+# For supported options, see https://galaxy.ansible.com/intro#meta
+
+galaxy_info:
+  author: ~
+  description: ~
+  # company: optional
+
+  license: MIT
+
+  # SAnsible only supports Ansible 2.2+
+  min_ansible_version: 2.2
+  min_ansible_container_version: 2.2
+
+  # All platforms supported by the role.  Ensure you test all in this list!
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+
+  # List of tags for your role to enable users to find it easily on Ansible Galaxy.
+  # See https://galaxy.ansible.com/explore#/ for inspiration.
+  galaxy_tags: []
+
+# List of Ansible Galaxy roles on which your role depends on.
+dependencies: []
