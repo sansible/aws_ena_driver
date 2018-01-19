@@ -6,13 +6,6 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
 
-def test_hosts_file(host):
-    # Assert /etc/hosts exists,...
-    f = host.file('/etc/hosts')
-    assert f.exists
-    # ...is owned by the user root,...
-    assert f.user == 'root'
-    # ...and owned by the group root.
-    assert f.group == 'root'
-
-# See http://testinfra.readthedocs.io/ for guidance on writing testinfra tests.
+def test_driver_installed(host):
+    cmd = host.run("modinfo ena -F version")
+    assert cmd.stdout.find("1.5.0") is not -1

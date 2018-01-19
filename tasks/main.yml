@@ -1,1 +1,6 @@
 ---
+
+- name: Install AWS ENA driver
+  include: install.yml
+  tags:
+    - build

@@ -51,7 +51,6 @@ login_%: _check_venv
 test: _check_venv
 	@.venv_ansible$(ANSIBLE_INSTALL_VERSION)/bin/molecule test --destroy=never
 
-
 ## Create virtualenv, install dependencies
 deps:
 	@if (python -V 2>&1 | grep -qv "Python 2.7"); then \
