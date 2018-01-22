@@ -9,9 +9,9 @@ driver:
 # See https://molecule.readthedocs.io/en/latest/configuration.html#platforms for details.
 # NOTE: Different drivers (see above) may have different configuration options.
 platforms:
-  - name: ROLE_NAME-trusty
+  - name: aws_ena_driver-trusty
     image: ubuntu:trusty
-  - name: ROLE_NAME-xenial
+  - name: aws_ena_driver-xenial
     image: ubuntu:xenial
 
 # Ansible is the only supported provisioner.  Configure Ansible options here, change the linter for Ansible playbooks,
