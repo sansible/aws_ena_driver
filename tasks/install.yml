@@ -19,7 +19,7 @@
 
 - name: Set ENA driver regex version fact
   set_fact:
-    aws_ena_driver_version_regex: "{{ sansible_aws_ena_driver.version | regex_escape() }}"
+    aws_ena_driver_version_regex: "{{ sansible_aws_ena_driver_version | regex_escape() }}"
 
 - name: Set ENA driver already installed fact
   set_fact:
@@ -29,42 +29,42 @@
     - name: Download ENA driver package
       become: yes
       get_url:
-        dest: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver.version }}.tar.gz"
-        sha256sum: "{{ sansible_aws_ena_driver.download_checksum }}"
-        url: "https://github.com/amzn/amzn-drivers/archive/ena_linux_{{ sansible_aws_ena_driver.version }}.tar.gz"
+        dest: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver_version }}.tar.gz"
+        sha256sum: "{{ sansible_aws_ena_driver_download_checksum }}"
+        url: "https://github.com/amzn/amzn-drivers/archive/ena_linux_{{ sansible_aws_ena_driver_version }}.tar.gz"
 
     - name: Prepare ENA driver package target directory
       become: yes
       file:
-        name: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver.version }}"
+        name: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver_version }}"
         state: directory
 
     - name: Extract ENA driver package
       become: yes
       unarchive:
-        dest: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver.version }}"
+        dest: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver_version }}"
         extra_opts:
           - "--strip-components=1"
         remote_src: yes
-        src: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver.version }}.tar.gz"
+        src: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver_version }}.tar.gz"
 
     - name: Create DKMS config for ENA driver
       become: yes
       template:
-        dest: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver.version }}/dkms.conf"
+        dest: "/usr/src/amzn-drivers-ena_linux-{{ sansible_aws_ena_driver_version }}/dkms.conf"
         src: dkms.conf.j2
 
     - name: Add ENA driver via DKMS
       become: yes
-      command: "dkms add -m amzn-drivers-ena_linux -v {{ sansible_aws_ena_driver.version }}"
+      command: "dkms add -m amzn-drivers-ena_linux -v {{ sansible_aws_ena_driver_version }}"
 
     - name: Build ENA driver via DKMS
       become: yes
-      command: "dkms build -m amzn-drivers-ena_linux -v {{ sansible_aws_ena_driver.version }}"
+      command: "dkms build -m amzn-drivers-ena_linux -v {{ sansible_aws_ena_driver_version }}"
 
     - name: Install ENA driver via DKMS
       become: yes
-      command: "dkms install -m amzn-drivers-ena_linux -v {{ sansible_aws_ena_driver.version }}"
+      command: "dkms install -m amzn-drivers-ena_linux -v {{ sansible_aws_ena_driver_version }}"
 
     - name: Rebuild update-initramfs to ensure ENA driver on boot
       become: yes

@@ -19,9 +19,6 @@ platforms:
 # See https://molecule.readthedocs.io/en/latest/configuration.html#provisioner for details.
 provisioner:
   name: ansible
-  config_options:
-    defaults:
-      hash_behaviour: merge
   lint:
     name: ansible-lint
 

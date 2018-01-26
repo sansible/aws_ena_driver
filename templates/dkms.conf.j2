@@ -1,5 +1,5 @@
 PACKAGE_NAME="ena"
-PACKAGE_VERSION="{{ sansible_aws_ena_driver.version }}"
+PACKAGE_VERSION="{{ sansible_aws_ena_driver_version }}"
 CLEAN="make -C kernel/linux/ena clean"
 MAKE="make -C kernel/linux/ena/ BUILD_KERNEL=${kernelver}"
 BUILT_MODULE_NAME[0]="ena"
