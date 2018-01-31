@@ -1,5 +1,4 @@
 ---
 
-sansible_aws_ena_driver:
-  download_checksum: b7ab5621a17e672bee8a1d7c0353a5a4a7a8238a727f8a90734b0f43f80fbad3
-  version: 1.5.0
+sansible_aws_ena_driver_download_checksum: b7ab5621a17e672bee8a1d7c0353a5a4a7a8238a727f8a90734b0f43f80fbad3
+sansible_aws_ena_driver_version: 1.5.0
